@@ -1,5 +1,5 @@
 import pytest
-from .models import Research
+from .models import Research, ResearchField
 from django.core.exceptions import ValidationError
 
 
@@ -13,3 +13,13 @@ class TestResearchModel:
     def test_is_name_exist(self, research_fixture):
         assert Research.is_research_name_exist(research_fixture.name)
         assert not Research.is_research_name_exist('this name should not exist')
+
+    def test_research_id_exist(self, research_fixture, research_data):
+        assert Research.is_research_id_exist(research_fixture.id)
+        assert not Research.is_research_id_exist(999)
+
+    def test_first_id_is_gal(self):
+        research = Research.get_research_by_id(1)
+        assert research.name == 'Plasticity of the motor network'
+        assert research.field == ResearchField.get_field_by_id(1)
+        assert research.capacity == 50

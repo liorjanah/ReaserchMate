@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'research.apps.ResearchConfig',
     'researcher.apps.ResearcherConfig',
     'participant.apps.ParticipantConfig',
+    'form.apps.FormConfig',
 ]
 
 MIDDLEWARE = [
