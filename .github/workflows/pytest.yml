@@ -13,4 +13,4 @@ jobs:
       - name: Setup environment
         run: pipenv sync --dev
       - name: Run PyTest
-        run: pipenv run pytest -v
+        run: pipenv run pytest -v backend/
