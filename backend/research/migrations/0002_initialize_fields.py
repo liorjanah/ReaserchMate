@@ -7,14 +7,18 @@ class Migration(migrations.Migration):
     ]
 
     def generate_data(apps, schema_editor):
-        from research.models import ResearchField
-        test_data = ['Brain',
-                     'Arm']
+        from research.models import ResearchField, Research
+        field_test_data = ['Brain']
+        research_test_data = [('Plasticity of the motor network', 1, 50)]
 
         with transaction.atomic():
-            for name in test_data:
-                field = ResearchField(name=name)
+            for name in field_test_data:
+                field = ResearchField.create(name=name)
                 field.save()
+
+            for name, field_id, capacity in research_test_data:
+                research = Research.create(name=name, field_id=field_id, capacity=capacity)
+                research.save()
 
     operations = [
         migrations.RunPython(generate_data),
