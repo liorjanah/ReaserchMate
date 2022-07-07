@@ -66,3 +66,5 @@ class Research(models.Model):
     def get_research_by_id(research_id):
         result = Research.objects.filter(id=research_id).first()
         return result
+
+    # def assign_participant(self, participant_id):
