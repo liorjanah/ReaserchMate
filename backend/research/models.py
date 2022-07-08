@@ -1,6 +1,8 @@
 from django.db import models
 from .validators import ValidateResearch, ValidateResearchField
 from django.core.exceptions import ObjectDoesNotExist
+from participant.models import Participant
+from django.utils import timezone
 
 
 class ResearchField(models.Model):
@@ -66,3 +68,9 @@ class Research(models.Model):
     def get_research_by_id(research_id):
         result = Research.objects.filter(id=research_id).first()
         return result
+
+
+class ResearchAttending(models.Model):
+    participant = models.ForeignKey(Participant, on_delete=models.SET_NULL, null=True)
+    research = models.ForeignKey(Research, on_delete=models.SET_NULL, null=True)
+    date = models.DateTimeField(default=timezone.now, blank=True)
