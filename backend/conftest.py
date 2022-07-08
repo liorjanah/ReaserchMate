@@ -2,6 +2,7 @@ import pytest
 from research.models import Research, ResearchField
 from researcher.models import Researcher
 from form.models import FormMetadata
+from participant.models import Participant
 
 
 @pytest.fixture
@@ -26,11 +27,11 @@ def research_fixture(research_data):
 
 @pytest.fixture
 def researcher_data():
-    pytest.researcher_email = 'fixture@gmail.com'
-    pytest.researcher_username = 'testUsername'
-    pytest.researcher_password = 'testPassword'
-    pytest.researcher_first_name = 'test_first_name'
-    pytest.researcher_last_name = 'test_last_name'
+    pytest.researcher_email = 'researcher_fixture@gmail.com'
+    pytest.researcher_username = 'researcher_fixture_username'
+    pytest.researcher_password = 'researcher_fixture_password'
+    pytest.researcher_first_name = 'researcher_fixture_first_name'
+    pytest.researcher_last_name = 'researcher_fixture_last_name'
     pytest.researcher_phone_number = 1234567890
 
 
@@ -51,3 +52,20 @@ def form_metadata():
 @pytest.fixture
 def form_fixture(form_metadata):
     return FormMetadata.create(name=pytest.form_name, url=pytest.form_url, research_id=pytest.form_research_id)
+
+
+@pytest.fixture
+def participant_data():
+    pytest.participant_email = 'participant_fixture@gmail.com'
+    pytest.participant_username = 'participant_fixture_username'
+    pytest.participant_password = 'participant_fixture_password'
+    pytest.participant_first_name = 'participant_fixture_first_name'
+    pytest.participant_last_name = 'participant_fixture_last_name'
+    pytest.participant_phone_number = 1234567890
+
+
+@pytest.fixture
+def participant_fixture(participant_data):
+    return Participant.create(email=pytest.participant_email, username=pytest.participant_username,
+                              password=pytest.participant_password, first_name=pytest.participant_first_name,
+                              last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)

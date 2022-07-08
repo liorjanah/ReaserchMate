@@ -2,37 +2,44 @@ import pytest
 from .models import Participant
 from django.core.exceptions import ValidationError
 
-CONST_EMAIL = 'conste@gmail.com'
-CONST_USERNAME = 'constUsername'
-CONST_PASSWORD = 'constPassword'
-CONST_FIRST_NAME = 'const_first_name'
-CONST_LAST_NAME = 'const_last_name'
-CONST_PHONE = 1111111111
-
 
 @pytest.mark.django_db
-class TestResearcherModel:
-    def test_email_validation(self, researcher_fixture, researcher_data):
+class TestParticipantModel:
+    def test_email_validation(self, participant_fixture, participant_data):
         with pytest.raises(ValidationError, match='Enter a valid email address.'):
-            return Participant.create(email='no email', username=CONST_USERNAME, password=CONST_PASSWORD,
-                                      first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=CONST_PHONE)
+            Participant.create(email='no email', username='test_name_validation_username',
+                               password=pytest.participant_password, first_name=pytest.participant_first_name,
+                               last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)
 
-    def test_email_unique(self, researcher_fixture, researcher_data):
+    def test_email_unique(self, participant_fixture, participant_data):
         with pytest.raises(ValidationError, match='Invalid email - email already exist.'):
-            return Participant.create(email=pytest.researcher_email, username=CONST_USERNAME, password=CONST_PASSWORD,
-                                      first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=CONST_PHONE)
+            Participant.create(email=pytest.participant_email, username='test_name_validation_username',
+                               password=pytest.participant_password, first_name=pytest.participant_first_name,
+                               last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)
 
-    def test_name_validation(self, researcher_fixture, researcher_data):
+    def test_name_validation(self, participant_fixture, participant_data):
         with pytest.raises(ValidationError, match='Invalid username - username already exist.'):
-            return Participant.create(email=CONST_EMAIL, username=pytest.researcher_username, password=CONST_PASSWORD,
-                                      first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=CONST_PHONE)
+            Participant.create(email='test_name_validation@gmail.com', username=pytest.participant_username,
+                               password=pytest.participant_password, first_name=pytest.participant_first_name,
+                               last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)
 
-    def test_phone_validation_len(self, researcher_fixture, researcher_data):
+    def test_phone_validation_len(self, participant_fixture, participant_data):
         with pytest.raises(ValidationError, match='Invalid phone - phone should be 10 digits.'):
-            return Participant.create(email=CONST_EMAIL, username=CONST_USERNAME, password=CONST_PASSWORD,
-                                      first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=123)
+            Participant.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
+                               password=pytest.participant_password, first_name=pytest.participant_first_name,
+                               last_name=pytest.participant_last_name, phone_number=123)
 
-    def test_phone_validation_str(self, researcher_fixture, researcher_data):
+    def test_phone_validation_str(self, participant_fixture, participant_data):
         with pytest.raises(ValidationError, match='Invalid phone - phone should be number.'):
-            return Participant.create(email=CONST_EMAIL, username=CONST_USERNAME, password=CONST_PASSWORD,
-                                      first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number='123')
+            Participant.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
+                               password=pytest.participant_password, first_name=pytest.participant_first_name,
+                               last_name=pytest.participant_last_name, phone_number='123')
+
+    def test_get_by_id(self, participant_fixture, participant_data):
+        result = Participant.get_by_id(participant_fixture.id)
+        assert result.user.email == participant_fixture.user.email
+        assert result.user.username == participant_fixture.user.username
+        assert result.user.password == participant_fixture.user.password
+        assert result.first_name == participant_fixture.first_name
+        assert result.last_name == participant_fixture.last_name
+        assert result.phone_number == participant_fixture.phone_number

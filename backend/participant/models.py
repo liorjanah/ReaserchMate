@@ -19,6 +19,11 @@ class Participant(models.Model):
         res.save()
         return res
 
+    @staticmethod
+    def get_by_id(participant_id):
+        result = Participant.objects.filter(id=participant_id).first()
+        return result
+
 
 class Attending(models.Model):
     participant = models.ForeignKey(Participant, on_delete=models.SET_NULL, null=True)
