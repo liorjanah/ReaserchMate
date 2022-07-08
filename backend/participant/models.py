@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import User
-from research.models import Research
 from validators import ValidateUser
 
 
@@ -23,8 +22,3 @@ class Participant(models.Model):
     def get_by_id(participant_id):
         result = Participant.objects.filter(id=participant_id).first()
         return result
-
-
-class Attending(models.Model):
-    participant = models.ForeignKey(Participant, on_delete=models.SET_NULL, null=True)
-    research = models.ForeignKey(Research, on_delete=models.SET_NULL, null=True)
