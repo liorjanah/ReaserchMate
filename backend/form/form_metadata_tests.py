@@ -22,3 +22,6 @@ class TestFormModel():
         assert form_fixture.name == pytest.form_name
         assert form_fixture.url == pytest.form_url
         assert form_fixture.research.id == pytest.form_research_id
+
+    def test_is_form_name_exist(self, form_fixture, form_metadata):
+        assert FormMetadata.is_form_name_exist(pytest.form_name)

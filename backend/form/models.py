@@ -30,8 +30,8 @@ class FormMetadata(models.Model):
             return False
 
     @staticmethod
-    def get_form_metadata_by_id(name):
-        result = FormMetadata.objects.filter(name=name).first()
+    def get_form_metadata_by_id(metadata_id):
+        result = FormMetadata.objects.filter(id=metadata_id).first()
         return result
 
 
