@@ -57,8 +57,8 @@ class Research(models.Model):
     @staticmethod
     def is_research_id_exist(research_id):
         try:
-            result = Research.objects.filter(id=research_id)
-            if len(result) > 0:
+            result = Research.get_research_by_id(research_id=research_id)
+            if result:
                 return True
             return False
         except ObjectDoesNotExist:
