@@ -8,7 +8,7 @@ import django.utils.timezone
 class Migration(migrations.Migration):
     dependencies = [
         ('participant', '0001_initial'),
-        ('research', '0002_initialize_fields'),
+        ('research', '0002_test_data'),
     ]
 
     operations = [

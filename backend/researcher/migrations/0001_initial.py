@@ -10,7 +10,7 @@ class Migration(migrations.Migration):
 
     dependencies = [
         migrations.swappable_dependency(settings.AUTH_USER_MODEL),
-        ('research', '0002_initialize_fields'),
+        ('research', '0002_test_data'),
     ]
 
     operations = [
