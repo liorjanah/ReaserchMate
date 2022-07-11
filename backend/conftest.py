@@ -20,7 +20,7 @@ def research_field(research_data):
 
 
 @pytest.fixture
-def research_fixture(research_data):
+def research_fixture(research_field, research_data):
     return Research.create(name=pytest.research_name, field_id=pytest.research_filed_id,
                            capacity=pytest.research_capacity)
 

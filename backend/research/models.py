@@ -26,9 +26,19 @@ class ResearchField(models.Model):
             return False
 
     @staticmethod
-    def get_field_by_id(filed_id):
-        result = ResearchField.objects.filter(id=filed_id).first()
+    def get_field_by_id(field_id):
+        result = ResearchField.objects.filter(id=field_id).first()
         return result
+
+    @staticmethod
+    def is_id_exist(field_id):
+        try:
+            result = ResearchField.get_field_by_id(field_id=field_id)
+            if result:
+                return True
+            return False
+        except ObjectDoesNotExist:
+            return False
 
 
 class Research(models.Model):
@@ -38,9 +48,8 @@ class Research(models.Model):
 
     @staticmethod
     def create(name, field_id, capacity):
-        ValidateResearch(name).start_validation()
-        field = ResearchField.get_field_by_id(filed_id=field_id)
-        res = Research(name=name, field=field, capacity=capacity)
+        ValidateResearch(name=name, field_id=field_id).start_validation()
+        res = Research(name=name, field=ResearchField.get_field_by_id(field_id=field_id), capacity=capacity)
         res.save()
         return res
 
@@ -66,8 +75,11 @@ class Research(models.Model):
 
     @staticmethod
     def get_research_by_id(research_id):
-        result = Research.objects.filter(id=research_id).first()
-        return result
+        return Research.objects.filter(id=research_id).first()
+
+    @staticmethod
+    def get_all():
+        return Research.objects.all()
 
 
 class ResearchAttending(models.Model):
