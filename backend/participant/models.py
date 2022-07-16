@@ -22,3 +22,7 @@ class Participant(models.Model):
     def get_by_id(participant_id):
         result = Participant.objects.filter(id=participant_id).first()
         return result
+
+    @staticmethod
+    def get_all():
+        return Participant.objects.all()
