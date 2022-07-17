@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'researcher',
     'participant',
     'form',
+    'base_user',
 ]
 
 MIDDLEWARE = [

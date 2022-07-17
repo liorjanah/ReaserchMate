@@ -3,6 +3,24 @@ from research.models import Research, ResearchField
 from researcher.models import Researcher
 from form.models import FormMetadata
 from participant.models import Participant
+from base_user.models import BaseUser
+
+
+@pytest.fixture
+def base_user_data():
+    pytest.base_user_email = 'base_user_fixture@gmail.com'
+    pytest.base_user_username = 'base_user_fixture_username'
+    pytest.base_user_password = 'base_user_fixture_password'
+    pytest.base_user_first_name = 'base_user_fixture_first_name'
+    pytest.base_user_last_name = 'base_user_fixture_last_name'
+    pytest.base_user_phone_number = 1234567890
+
+
+@pytest.fixture
+def base_user_fixture(participant_data):
+    return BaseUser.create(email=pytest.base_user_email, username=pytest.base_user_username,
+                           password=pytest.base_user_password, first_name=pytest.base_user_first_name,
+                           last_name=pytest.base_user_last_name, phone_number=pytest.base_user_phone_number)
 
 
 @pytest.fixture
