@@ -24,6 +24,23 @@ def base_user_fixture(participant_data):
 
 
 @pytest.fixture
+def participant_data():
+    pytest.participant_email = 'participant_fixture@gmail.com'
+    pytest.participant_username = 'participant_fixture_username'
+    pytest.participant_password = 'participant_fixture_password'
+    pytest.participant_first_name = 'participant_fixture_first_name'
+    pytest.participant_last_name = 'participant_fixture_last_name'
+    pytest.participant_phone_number = 1234567890
+
+
+@pytest.fixture
+def participant_fixture(participant_data):
+    return Participant.create(email=pytest.participant_email, username=pytest.participant_username,
+                              password=pytest.participant_password, first_name=pytest.participant_first_name,
+                              last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)
+
+
+@pytest.fixture
 def research_data():
     pytest.research_filed_name = 'test field'
     pytest.research_name = 'test research'
@@ -70,20 +87,3 @@ def form_metadata():
 @pytest.fixture
 def form_fixture(form_metadata):
     return FormMetadata.create(name=pytest.form_name, url=pytest.form_url, research_id=pytest.form_research_id)
-
-
-@pytest.fixture
-def participant_data():
-    pytest.participant_email = 'participant_fixture@gmail.com'
-    pytest.participant_username = 'participant_fixture_username'
-    pytest.participant_password = 'participant_fixture_password'
-    pytest.participant_first_name = 'participant_fixture_first_name'
-    pytest.participant_last_name = 'participant_fixture_last_name'
-    pytest.participant_phone_number = 1234567890
-
-
-@pytest.fixture
-def participant_fixture(participant_data):
-    return Participant.create(email=pytest.participant_email, username=pytest.participant_username,
-                              password=pytest.participant_password, first_name=pytest.participant_first_name,
-                              last_name=pytest.participant_last_name, phone_number=pytest.participant_phone_number)
