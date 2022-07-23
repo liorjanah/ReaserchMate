@@ -136,3 +136,6 @@ dmypy.json
 
 # Vagrant
 .vagrant
+
+# VSCode settings
+.vscode
