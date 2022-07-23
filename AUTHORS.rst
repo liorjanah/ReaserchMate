@@ -2,5 +2,6 @@
 Authors
 =======
 
-* Gal Ben-Zvi - https://github.com/GalBenZvi
-* Zvi Baratz - https://github.com/ZviBaratz
+* Jenia Sakirko - https://github.com/jeniaSakirko
+* Lior Janah - https://github.com/liorjanah
+* Gabi Galfrin - https://github.com/GabyGalfrin

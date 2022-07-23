@@ -21,14 +21,12 @@ setup(
     name="ResarchMate",
     version="0.0.0",
     license="Apache-2.0",
-    description="Python package to manage and interact with ongoing researches",
+    description="Python package to manage and interact with ongoing researches",  # noqa: E501
     long_description="{}\n{}".format(
-        re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub(
-            "", read("README.rst")
-        ),
+        re.compile("^.. start-badges.*^.. end-badges", re.M | re.S).sub("", read("README.rst")),  # noqa: E501
         re.sub(":[a-z]+:`~?(.*?)`", r"``\1``", read("CHANGELOG.rst")),
     ),
-    author="Jenia Sakirko, Lior Janah, Gabi Galperin",
+    author="Jenia Sakirko, Lior Janah, Gabi Galfrin",
     author_email="jenia.sakirko@gmail.com",
     url="https://github.com/jeniaSakirko/ResearchMate",
     packages=find_packages("backend"),
@@ -64,9 +62,14 @@ setup(
         # eg: 'keyword1', 'keyword2', 'keyword3',
     ],
     python_requires=">=3.6",
-    install_requires=["django","django-rest-framework","django-cors-headers","backports.weakref"],
+    install_requires=[
+        "django",
+        "django-rest-framework",
+        "django-cors-headers",
+        "backports.weakref",
+    ],
     extras_require={
-        "dev": ["pre-commit","flake8","black","isort","pytest-django"],
+        "dev": ["pre-commit", "flake8", "black", "isort", "pytest-django"],
         "test": ["pytest", "tox"],
-    }
+    },
 )
