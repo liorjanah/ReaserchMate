@@ -1,5 +1,6 @@
 from rest_framework import serializers
 from django.core.exceptions import ValidationError
+from django.contrib.auth import authenticate
 from django.contrib.auth.models import User
 from .models import BaseUser
 
@@ -36,8 +37,14 @@ class BaseUserSerializer(serializers.ModelSerializer):
     class Meta:
         model = BaseUser
         fields = ('id', 'user', 'phone_number')
-        extra_kwargs = {
-            'phone_number': {
-                'write_only': True
-            }
-        }
+
+
+class LoginSerializer(serializers.Serializer):
+    username = serializers.CharField()
+    password = serializers.CharField()
+
+    def validate(self, data):
+        user = authenticate(**data)
+        if user and user.is_active:
+            return user
+        raise serializers.ValidationError("Incorrect Credentials")
