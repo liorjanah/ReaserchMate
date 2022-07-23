@@ -28,8 +28,8 @@ class ValidateBaseUser:
 
     def validate_phone(self):
         value = self.phone_number
-        if isinstance(value, int):
-            if len(str(value)) != 10:
+        if isinstance(value, str):
+            if len(value) != 10:
                 raise ValidationError('Invalid phone - phone should be 10 digits.')
         else:
-            raise ValidationError('Invalid phone - phone should be number.')
+            raise ValidationError('Invalid phone - phone should be string.')

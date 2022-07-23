@@ -30,9 +30,9 @@ class TestResearcherModel:
     def test_phone_validation_len(self, researcher_fixture, researcher_data):
         with pytest.raises(ValidationError, match='Invalid phone - phone should be 10 digits.'):
             return Researcher.create(email=CONST_EMAIL, username=CONST_USERNAME, password=CONST_PASSWORD,
-                                     first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=123)
+                                     first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number='123')
 
     def test_phone_validation_str(self, researcher_fixture, researcher_data):
-        with pytest.raises(ValidationError, match='Invalid phone - phone should be number.'):
+        with pytest.raises(ValidationError, match='Invalid phone - phone should be string.'):
             return Researcher.create(email=CONST_EMAIL, username=CONST_USERNAME, password=CONST_PASSWORD,
-                                     first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number='123')
+                                     first_name=CONST_FIRST_NAME, last_name=CONST_LAST_NAME, phone_number=123)
