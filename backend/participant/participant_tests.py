@@ -27,13 +27,13 @@ class TestParticipantModel:
         with pytest.raises(ValidationError, match='Invalid phone - phone should be 10 digits.'):
             Participant.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
                                password=pytest.participant_password, first_name=pytest.participant_first_name,
-                               last_name=pytest.participant_last_name, phone_number=123)
+                               last_name=pytest.participant_last_name, phone_number='123')
 
     def test_phone_validation_str(self, participant_fixture, participant_data):
-        with pytest.raises(ValidationError, match='Invalid phone - phone should be number.'):
+        with pytest.raises(ValidationError, match='Invalid phone - phone should be string.'):
             Participant.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
                                password=pytest.participant_password, first_name=pytest.participant_first_name,
-                               last_name=pytest.participant_last_name, phone_number='123')
+                               last_name=pytest.participant_last_name, phone_number=123)
 
     def test_get_by_id(self, participant_fixture, participant_data):
         result = Participant.get_by_id(participant_fixture.id)
