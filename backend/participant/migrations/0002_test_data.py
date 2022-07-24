@@ -7,6 +7,7 @@ import random
 class Migration(migrations.Migration):
     dependencies = [
         ('participant', '0001_initial'),
+        ('base_user', '0002_alter_baseuser_phone_number'),
     ]
 
     def generate_data(apps, schema_editor):
@@ -18,7 +19,7 @@ class Migration(migrations.Migration):
                 name = '{}_{}'.format(name_prefix, i)
                 Participant.create(email='{}@gmail.com'.format(name), username=name, password=name,
                                    first_name=name_prefix, last_name=str(i),
-                                   phone_number=random.randint(1000000000, 9999999999))
+                                   phone_number=str(random.randint(1000000000, 9999999999)))
 
     operations = [
         migrations.RunPython(generate_data),

@@ -27,10 +27,10 @@ class TestBaseUserModel:
         with pytest.raises(ValidationError, match='Invalid phone - phone should be 10 digits.'):
             BaseUser.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
                             password=pytest.base_user_password, first_name=pytest.base_user_first_name,
-                            last_name=pytest.base_user_last_name, phone_number=123)
+                            last_name=pytest.base_user_last_name, phone_number='123')
 
     def test_phone_validation_str(self, base_user_data):
-        with pytest.raises(ValidationError, match='Invalid phone - phone should be number.'):
+        with pytest.raises(ValidationError, match='Invalid phone - phone should be string.'):
             BaseUser.create(email='test_name_validation@gmail.com', username='test_name_validation_username',
                             password=pytest.base_user_password, first_name=pytest.base_user_first_name,
-                            last_name=pytest.base_user_last_name, phone_number='123')
+                            last_name=pytest.base_user_last_name, phone_number=123)

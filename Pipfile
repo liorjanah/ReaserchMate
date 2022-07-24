@@ -5,9 +5,12 @@ name = "pypi"
 
 [packages]
 django = "*"
-django-rest-framework = "*"
 django-cors-headers = "*"
 "backports.weakref" = "*"
+djangorestframework = "*"
+django-rest-knox = "*"
+django-phonenumbers = "*"
+django-phonenumber-field = "*"
 
 [dev-packages]
 flake8 = "*"
