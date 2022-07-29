@@ -19,10 +19,12 @@ class ValidateBaseUser:
         self.validate_phone()
 
     def validate_participant_username_unique(self):
+        # TODO: add the value name to the error
         if User.objects.filter(username=self.username).exists():
             raise ValidationError('Invalid username - username already exist.')
 
     def validate_participant_email_unique(self):
+        # TODO: add the value name to the error
         if User.objects.filter(email=self.email).exists():
             raise ValidationError('Invalid email - email already exist.')
 

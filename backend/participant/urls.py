@@ -1,10 +1,6 @@
-from django.urls import path, include
-from rest_framework.routers import DefaultRouter
-from .views import ParticipantViewSet
-
-router = DefaultRouter()
-router.register(r'participant', ParticipantViewSet)
+from django.urls import path
+from .views import ParticipantRegisterAPI
 
 urlpatterns = [
-    path('', include(router.urls))
+    path('participant/register', ParticipantRegisterAPI.as_view()),
 ]
