@@ -2,11 +2,10 @@
 ResearchMate
 =============
 
-
 Overview
 ========
 
-ResearchMate is an open-source Python package to manage and interact with ongoing researches.
+**ResearchMate** is an open-source Python package to manage and interact with ongoing researches.
 
 The main goal is establishing a Django Application that offers different views and functionality
 that are relevant for every-day use by mostly-academic researchers.
@@ -21,22 +20,22 @@ These instructions will get you up and running on your local machine.
 Prerequisites
 ==============
 
-In order to run ResearchMate you should install:
+In order to run **ResearchMate** you should install:
 
 * Download and Install `Vagrant`_.
 * Download and Install `Virtual Box`_.
 
 Run the project on your local machine
 ======================================
-A step by step series that tell you how to get Hotails up and running:
+A step by step series that tell you how to get **ResearchMate** up and running:
 
 1. Clone the repository
-2. Open command prompt in Hotails directory
-3. Spin the environment using vagrant up
+2. Open command prompt in **ResearchMate** directory
+3. Spin the environment using :code:`vagrant up`
 4. That's it! your virtual machine is up and running
-5. Go to http://localhost:8000 in your web browser
-6. You can enter the virtual machine by running vagrant ssh
-7. When finished, run vagrant destroy -f to tear down the environment
+5. Go to http://localhost:3000 in your web browser
+6. You can enter the virtual machine by running :code:`vagrant ssh`
+7. When finished, run :code:`vagrant destroy -f` to tear down the environment
 
 NOTE: By running this command all changes on the virtual machine will be deleted.
 
