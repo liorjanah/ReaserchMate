@@ -24,7 +24,7 @@ SECRET_KEY = 'django-insecure-0!kppzj5n#cnj=jju#f(xl2_6j5f^@!_n7cq+8d^^#t$6^ff!m
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['1.0.0.127.in-addr.arpa', 'localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 # Application definition
 
@@ -136,3 +136,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 PHONENUMBER_DB_FORMAT = 'NATIONAL'
 PHONENUMBER_DEFAULT_REGION = 'IL'
+
+CORS_ORIGIN_ALLOW_ALL = True
