@@ -1,4 +1,3 @@
-# from base_user.models import BaseUser
 from rest_framework import generics, permissions
 from rest_framework.response import Response
 from knox.models import AuthToken

@@ -21,3 +21,7 @@ class Participant(models.Model):
     @staticmethod
     def get_all():
         return Participant.objects.all()
+
+    def update_data(self, data):
+        self.base_user.update_data(data)
+        self.save()

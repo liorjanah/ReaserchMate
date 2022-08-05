@@ -1,6 +1,7 @@
 from rest_framework import serializers
-from django.core.exceptions import ValidationError
+from django.core.exceptions import ValidationError, PermissionDenied
 from .models import Participant
+from researcher.models import Researcher
 
 
 class ParticipantSerializer(serializers.Serializer):
@@ -12,7 +13,21 @@ class ParticipantSerializer(serializers.Serializer):
     phone_number = serializers.CharField()
 
     def update(self, instance, validated_data):
-        pass
+        try:
+            req_user = self.context['request'].user
+            can_update = False
+            if Researcher.objects.filter(base_user=req_user.baseuser).exists():
+                can_update = True
+            elif req_user.id == instance.id:
+                can_update = True
+
+            if can_update:
+                instance.update_data(validated_data)
+            else:
+                raise PermissionDenied()
+            return instance
+        except Exception as e:
+            raise Exception('Internal Error {}'.format(str(e)))
 
     def create(self, validated_data):
         try:
