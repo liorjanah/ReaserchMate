@@ -5,6 +5,9 @@ from base_user.models import BaseUser
 class Participant(models.Model):
     base_user = models.OneToOneField(BaseUser, on_delete=models.CASCADE)
 
+    def __str__(self):
+        return str(self.base_user)
+
     @staticmethod
     def create(email, username, password, first_name, last_name, phone_number):
         res = Participant(base_user=BaseUser.create(email=email, username=username, password=password,

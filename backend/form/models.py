@@ -46,3 +46,10 @@ class FormParticipantMap(models.Model):
     participant = models.ForeignKey(Participant, on_delete=models.SET_NULL, null=True)
     status = models.CharField(max_length=1, choices=Status.choices, default='N', blank=True)
     date = models.DateTimeField(default=timezone.now, blank=True)
+
+    @staticmethod
+    def create(research, participant):
+        form_list = FormMetadata.objects.filter(research=research)
+        for form in form_list:
+            res = FormParticipantMap(form=form, participant=participant)
+            res.save()

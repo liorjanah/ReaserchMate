@@ -8,6 +8,9 @@ class BaseUser(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)
     phone_number = PhoneNumberField()
 
+    def __str__(self):
+        return '{0} {1}'.format(self.user.first_name, self.user.last_name)
+
     @staticmethod
     def create(email, username, password, first_name, last_name, phone_number):
         ValidateBaseUser(email=email, username=username, password=password, first_name=first_name,

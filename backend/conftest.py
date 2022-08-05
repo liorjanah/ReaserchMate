@@ -61,6 +61,11 @@ def research_fixture(research_field, research_data):
 
 
 @pytest.fixture
+def research_gal(researcher_data):
+    return Research.objects.get(id=1)
+
+
+@pytest.fixture
 def researcher_data():
     pytest.researcher_email = 'researcher_fixture@gmail.com'
     pytest.researcher_username = 'researcher_fixture_username'
