@@ -81,8 +81,40 @@ class Research(models.Model):
     def get_all():
         return Research.objects.all()
 
+    def assign_participant(self, participant):
+        from form.models import FormParticipantMap
+
+        ResearchAttending.create(research=self, participant=participant)
+        FormParticipantMap.create(research=self, participant=participant)
+
+
+class ResearchAttendingStatus(models.TextChoices):
+    assigned = 'AS', 'Assigned'
+    in_progress = 'IP', 'InProgress'
+    drop = 'DR', 'Drop'
+    done = 'DO', 'Done'
+
 
 class ResearchAttending(models.Model):
     participant = models.ForeignKey(Participant, on_delete=models.SET_NULL, null=True)
     research = models.ForeignKey(Research, on_delete=models.SET_NULL, null=True)
     date = models.DateTimeField(default=timezone.now, blank=True)
+    status = models.CharField(max_length=2, choices=ResearchAttendingStatus.choices, default='AS', blank=False)
+
+    @staticmethod
+    def create(research, participant):
+        if ResearchAttending.is_participant_free(participant=participant):
+            res = ResearchAttending(participant=participant, research=research)
+            res.save()
+
+        else:
+            raise Exception('{0} cannot be assigned to research'.format(participant))
+
+    @staticmethod
+    def is_participant_free(participant):
+        attn_list = ResearchAttending.objects.filter(participant=participant)
+        for record in attn_list:
+            st = record.status
+            if st == ResearchAttendingStatus.assigned or st == ResearchAttendingStatus.in_progress:
+                return False
+        return True
