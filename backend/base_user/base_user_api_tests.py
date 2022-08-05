@@ -24,7 +24,7 @@ class TestBaseUserAPI:
             'password': pytest.participant_password
         }
 
-        response = send_request(client=client, url='/api/auth/login', req_type='post', data=data)
+        response = send_request(client, '/api/auth/login', 'post', data)
         assert response.status_code == 200
         assert response.data['user']['user']['id'] == participant_fixture.base_user.user.id
         assert response.data['user']['user']['username'] == participant_fixture.base_user.user.username
@@ -41,7 +41,8 @@ class TestBaseUserAPI:
             'password': 'invalid'
         }
 
-        response = send_request(client, '/api/auth/login', 'post', data)
+        response = send_request(client=client, url='/api/auth/login', req_type='post', data=data)
+
         assert response.status_code == 400
         assert 'Incorrect Credentials' in response.data['non_field_errors'][0]
 
