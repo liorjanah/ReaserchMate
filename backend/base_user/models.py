@@ -21,3 +21,19 @@ class BaseUser(models.Model):
         base_user.save()
 
         return base_user
+
+    def update_data(self, data):
+        if 'email' in data.keys():
+            self.user.email = data['email']
+        if 'username' in data.keys():
+            self.user.username = data['username']
+        if 'password' in data.keys():
+            self.user.set_password(data['password'])
+        if 'first_name' in data.keys():
+            self.user.first_name = data['first_name']
+        if 'last_name' in data.keys():
+            self.user.last_name = data['last_name']
+        if 'phone_number' in data.keys():
+            self.phone_number = data['phone_number']
+        self.user.save()
+        self.save()
