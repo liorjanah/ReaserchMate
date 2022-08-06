@@ -92,3 +92,15 @@ def form_metadata():
 @pytest.fixture
 def form_fixture(form_metadata):
     return FormMetadata.create(name=pytest.form_name, url=pytest.form_url, research_id=pytest.form_research_id)
+
+
+@pytest.fixture
+def researcher_token_fixture(researcher_fixture, researcher_data, client):
+    data = {
+        'username': pytest.researcher_username,
+        'password': pytest.researcher_password
+    }
+
+    response = client.post('/api/auth/login', data=data, content_type='application/json')
+
+    return {'HTTP_AUTHORIZATION': 'Token {}'.format(response.data['token'])}

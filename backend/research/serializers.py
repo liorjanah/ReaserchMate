@@ -18,3 +18,21 @@ class ResearchSerializer(serializers.ModelSerializer):
     class Meta:
         model = Research
         fields = ('id', 'name', 'field', 'capacity')
+
+
+class ResearchAssignSerializer(serializers.Serializer):
+    participant_id = serializers.IntegerField()
+
+    def update(self, instance, validated_data):
+        try:
+            instance.assign_participant(participant_id=validated_data['participant_id'])
+            return instance
+        except Exception as e:
+            raise serializers.ValidationError(e)
+
+    def validate(self, data):
+        if 'participant_id' not in data.keys():
+            raise serializers.ValidationError("participant_id is missing")
+        if not isinstance(data['participant_id'], int):
+            raise serializers.ValidationError("Id must be integer")
+        return data

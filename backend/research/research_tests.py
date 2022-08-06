@@ -40,10 +40,10 @@ class TestResearchModel:
         assert ResearchAttending.is_participant_free(participant_fixture)
 
     def test_is_participant_free_busy(self, research_gal, participant_fixture):
-        ResearchAttending.create(research=research_gal, participant=participant_fixture)
-        assert not ResearchAttending.is_participant_free(participant_fixture)
+        ResearchAttending.create(research=research_gal, participant_id=participant_fixture.id)
+        assert not ResearchAttending.is_participant_free(participant_id=participant_fixture.id)
 
     def test_assign_participant(self, research_gal, participant_fixture):
         assert len(ResearchAttending.objects.filter(research=research_gal)) == 0
-        research_gal.assign_participant(participant=participant_fixture)
+        research_gal.assign_participant(participant_id=participant_fixture.id)
         assert len(ResearchAttending.objects.filter(research=research_gal)) == 1
