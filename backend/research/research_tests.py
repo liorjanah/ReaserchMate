@@ -1,5 +1,5 @@
 import pytest
-from .models import Research, ResearchField
+from .models import Research, ResearchField, ResearchAttending
 from django.core.exceptions import ValidationError
 
 
@@ -35,3 +35,15 @@ class TestResearchModel:
 
         Research.create(name='test_get_all', field_id=pytest.research_filed_id, capacity=20)
         assert len(original) + 1 == len(list(Research.get_all()))
+
+    def test_is_participant_free_free(self, research_fixture, participant_fixture):
+        assert ResearchAttending.is_participant_free(participant_fixture)
+
+    def test_is_participant_free_busy(self, research_gal, participant_fixture):
+        ResearchAttending.create(research=research_gal, participant=participant_fixture)
+        assert not ResearchAttending.is_participant_free(participant_fixture)
+
+    def test_assign_participant(self, research_gal, participant_fixture):
+        assert len(ResearchAttending.objects.filter(research=research_gal)) == 0
+        research_gal.assign_participant(participant=participant_fixture)
+        assert len(ResearchAttending.objects.filter(research=research_gal)) == 1
