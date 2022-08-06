@@ -81,11 +81,11 @@ class Research(models.Model):
     def get_all():
         return Research.objects.all()
 
-    def assign_participant(self, participant):
+    def assign_participant(self, participant_id):
         from form.models import FormParticipantMap
 
-        ResearchAttending.create(research=self, participant=participant)
-        FormParticipantMap.create(research=self, participant=participant)
+        ResearchAttending.create(research=self, participant_id=participant_id)
+        FormParticipantMap.create(research=self, participant_id=participant_id)
 
 
 class ResearchAttendingStatus(models.TextChoices):
@@ -102,17 +102,20 @@ class ResearchAttending(models.Model):
     status = models.CharField(max_length=2, choices=ResearchAttendingStatus.choices, default='AS', blank=False)
 
     @staticmethod
-    def create(research, participant):
-        if ResearchAttending.is_participant_free(participant=participant):
-            res = ResearchAttending(participant=participant, research=research)
+    def create(research, participant_id):
+        if Participant.get_by_id(participant_id=participant_id) is None:
+            raise Exception('Participant with id {0} does not exist'.format(participant_id))
+        if ResearchAttending.is_participant_free(participant_id=participant_id):
+            res = ResearchAttending(participant=Participant.get_by_id(participant_id=participant_id), research=research)
             res.save()
 
         else:
-            raise Exception('{0} cannot be assigned to research'.format(participant))
+            raise Exception(
+                '{0} cannot be assigned to research'.format(Participant.get_by_id(participant_id=participant_id)))
 
     @staticmethod
-    def is_participant_free(participant):
-        attn_list = ResearchAttending.objects.filter(participant=participant)
+    def is_participant_free(participant_id):
+        attn_list = ResearchAttending.objects.filter(participant_id=participant_id)
         for record in attn_list:
             st = record.status
             if st == ResearchAttendingStatus.assigned or st == ResearchAttendingStatus.in_progress:
