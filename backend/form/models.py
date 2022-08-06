@@ -48,8 +48,8 @@ class FormParticipantMap(models.Model):
     date = models.DateTimeField(default=timezone.now, blank=True)
 
     @staticmethod
-    def create(research, participant):
+    def create(research, participant_id):
         form_list = FormMetadata.objects.filter(research=research)
         for form in form_list:
-            res = FormParticipantMap(form=form, participant=participant)
+            res = FormParticipantMap(form=form, participant=Participant.get_by_id(participant_id=participant_id))
             res.save()
